@@ -1,4 +1,5 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
+import Login from '../layout/Login.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
 
@@ -13,10 +14,14 @@ import Notifications from 'src/pages/Notifications.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 
 const routes = [
+  // {
+  //   path: '/',
+  //   component: DashboardLayout,
+  //   redirect: '/admin/overview/pruu'
+  // },
   {
     path: '/',
-    component: DashboardLayout,
-    redirect: '/admin/overview'
+    component: Login
   },
   {
     path: '/admin',
