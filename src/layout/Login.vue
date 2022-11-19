@@ -49,6 +49,7 @@
                   placeholder="Email"
                   class="forms_field-input"
                   required
+                  v-model="email"
                   autofocus
                 />
               </div>
@@ -58,6 +59,7 @@
                   placeholder="Senha"
                   class="forms_field-input"
                   required
+                  v-model="password"
                 />
               </div>
             </fieldset>
@@ -69,6 +71,7 @@
                 type="submit"
                 value="Log In"
                 class="forms_buttons-action"
+                @click="toggleSignIn"
               />
             </div>
           </form>
@@ -96,6 +99,7 @@
                   type="email"
                   placeholder="Email"
                   class="forms_field-input"
+                  v-model="email"
                   required
                 />
               </div>
@@ -104,6 +108,7 @@
                   type="password"
                   placeholder="Senha"
                   class="forms_field-input"
+                  v-model="password"
                   required
                 />
               </div>
@@ -122,10 +127,15 @@
   </section>
 </template>
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import firebaseConfig from "../firebase/index";
 export default {
   data() {
     return {
       userForm: "",
+      password: "",
+      email: "",
+      router: this.$router
     };
   },
   methods: {
@@ -138,6 +148,46 @@ export default {
       this.userForm = document.getElementById("user_options-forms");
       this.userForm.classList.remove("bounceLeft");
       this.userForm.classList.add("bounceRight");
+    },
+    // async login() {
+    //   console.log(this.$firebase);
+    //   let router = this.$router;
+    //   await this.$firebase
+    //     .auth
+    //     .sign(this.email, this.password)
+    //     .then(() => {
+    //       console.log("pruu");
+    //       router
+    //         .push({ name: "dashboard" })
+    //         .then(() => {
+    //           router.go();
+    //         })
+    //         .catch((error) => {
+    //           console.error;
+    //         });
+    //     });
+    // },
+    toggleSignIn() {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          this.router
+            .push({ name: "dashboard" })
+            .then(() => {
+              router.go();
+            })
+            .catch((error) => {
+              console.error;
+            });
+
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
     },
   },
 };

@@ -1,4 +1,5 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
+import Dashboard from '../layout/Dashboard.vue'
 import Login from '../layout/Login.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
@@ -25,6 +26,55 @@ const routes = [
   },
   {
     path: '/admin',
+    name: 'dashboard',
+    component: Dashboard,
+    redirect: '/admin/overview',
+    children: [
+      {
+        path: 'overview',
+        name: 'Overview',
+        component: Overview
+      },
+      {
+        path: 'user',
+        name: 'User',
+        component: UserProfile
+      },
+      {
+        path: 'table-list',
+        name: 'Table List',
+        component: TableList
+      },
+      {
+        path: 'typography',
+        name: 'Typography',
+        component: Typography
+      },
+      {
+        path: 'icons',
+        name: 'Icons',
+        component: Icons
+      },
+      {
+        path: 'maps',
+        name: 'Maps',
+        component: Maps
+      },
+      {
+        path: 'notifications',
+        name: 'Notifications',
+        component: Notifications
+      },
+      {
+        path: 'upgrade',
+        name: 'Upgrade to PRO',
+        component: Upgrade
+      }
+    ]
+  },
+  {
+    path: '/admin-old',
+    name: 'dashboard-old',
     component: DashboardLayout,
     redirect: '/admin/overview',
     children: [
